@@ -1,11 +1,28 @@
-// A working news-image-daily entry (Node 22, standard library only): its image is the entry.png beside this file, and
-// the program copies it to /output/entry.png. A starting point, not a winner: replace the image. The gate takes a
-// whole PNG or JPEG of at most 1 MiB and 1024 by 1024 pixels, and the judge sees exactly the bytes copied.
+// news-image-20261124 entry: "Sum up 24 November's world news in one image".
 //
-// Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
+// The poster beside this file (entry.png, a 1024x1024 newspaper front page
+// drawn at build time by make_poster.py) is the whole entry. This program's
+// only job is to place those exact bytes at the output entry.png in the
+// grader's sandbox, where MAKEFUN_OUTPUT_DIR stands in for /output:
+//
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+//
+// It does no drawing at run time — the grading sandbox is Node-only with a
+// read-only repository, so rendering there would fail — and the two grading
+// runs therefore produce the identical file, byte for byte.
 
-import { copyFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { copyFileSync, mkdirSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-copyFileSync(new URL('./entry.png', import.meta.url), join(process.env.MAKEFUN_OUTPUT_DIR ?? '/output', 'entry.png'));
+function posterSource(): string {
+  return join(dirname(fileURLToPath(import.meta.url)), "entry.png");
+}
+
+function placePoster(): void {
+  const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+  mkdirSync(outDir, { recursive: true });
+  copyFileSync(posterSource(), join(outDir, "entry.png"));
+}
+
+placePoster();
