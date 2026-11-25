@@ -5,7 +5,11 @@ Build-time renderer: produces entry.png (1024x1024) next to this file.
 The shipped program (main.ts) never draws; it only copies entry.png.
 All stories and figures are from 24 Nov 2026 reporting (BBC, The Guardian,
 France 24, Al Jazeera, Euronews, Middle East Eye, CNBC, NPR, Yonhap,
-via One Turn's daily roundup, cross-checked with other roundups).
+US DOJ, Reuters, CNN, WSJ, via One Turn's daily roundup, cross-checked
+with other roundups). Refreshed on the morning of 25 Nov with the full
+day's news, including the stories that broke after the first edition:
+the Huawei verdict, the Riyadh PIF tower hit and the Cartagena hostage
+crisis.
 """
 from PIL import Image, ImageDraw, ImageFont
 
@@ -69,7 +73,7 @@ y += 68
 d.line([(MARGIN, y), (MARGIN + W, y)], fill=INK, width=3)
 y += 6
 d.text((MARGIN, y), "Tuesday 24 November 2026", font=F(SANSB, 14), fill=INK)
-sub = "One image, the whole day — 83 stories scanned, 12 told"
+sub = "One image, the whole day — 30 stories scanned, 12 told"
 d.text((MARGIN + W - d.textlength(sub, font=F(SANS, 12)), y + 1), sub,
        font=F(SANS, 12), fill=FAINT)
 y += 23
@@ -81,16 +85,17 @@ lead_end = y + 124
 d.rectangle([(MARGIN, y), (MARGIN + W, lead_end)], fill=BOX)
 lx = MARGIN + 16
 ly = y + 10
-d.text((lx, ly), "TECHNOLOGY · SANTA CLARA", font=F(SANSB, 11.5), fill=ACCENT)
+d.text((lx, ly), "JUSTICE · NEW YORK", font=F(SANSB, 11.5), fill=ACCENT)
 ly += 19
-ly = text_block(lx, ly, "NVIDIA BRINGS BACK HUANG AFTER TRUMP CALL",
+ly = text_block(lx, ly, "HUAWEI GUILTY ON 10 OF 12 COUNTS IN US TRIAL",
                 F(SERIF, 27), W - 32, 32)
 ly += 2
 text_block(lx, ly,
-    "Nvidia's board reinstated Jensen Huang as chief executive on Monday, "
-    "11 days after he resigned. Trump said he 'convinced' the board. Shares "
-    "closed 31% higher, adding about $1 trillion in a day; Congress plans "
-    "to question Huang on his China ties.",
+    "A Brooklyn jury convicted Huawei and three subsidiaries on 10 of 12 "
+    "counts — trade-secret theft, bank and wire fraud, sanctions "
+    "violations and money-laundering conspiracy — after an 11-week trial. "
+    "Acquitted on racketeering and obstruction conspiracy. Sentencing is "
+    "14 September 2027; Huawei will appeal. The case began in 2018.",
     F(SANS, 12.5), W - 32, 16, fill=(40, 40, 40))
 y = lead_end + 11
 
@@ -102,10 +107,10 @@ col_top = y
 # left column: world, europe, middle east
 ly = col_top
 ly = region(x1, ly, "World", col_w)
-ly = story(x1, ly, "Ukraine sinks Russian corvette off Libya",
-    "President Zelensky confirmed seven Ukrainian naval drones sank the "
-    "Russian corvette Merkury at Benghazi; a cargo ship was also hit. "
-    "The UN mission in Libya called for an independent probe.", col_w)
+ly = story(x1, ly, "Ukraine strikes Russian ships off Libya and Finland",
+    "Kyiv said naval drones sank the corvette Merkury off Benghazi; Libya "
+    "says severely damaged. Ukraine also acknowledged a drone hit on the "
+    "cargo ship Sparta II in the Gulf of Finland; 16 crew evacuated.", col_w)
 ly = story(x1, ly, "COP31 climate summit ends without a deal",
     "The UN talks in Antalya ran two days over — the longest in history — "
     "and closed with no agreement. The EU and about 130 parties rejected "
@@ -116,14 +121,15 @@ ly = story(x1, ly, "Russian drone enters Polish airspace; NATO sends AWACS",
     "missiles fell in Poland. NATO agreed to send an early-warning "
     "aircraft as Warsaw investigates 'intentional activity'.", col_w)
 ly = region(x1, ly, "Middle East", col_w)
-ly = story(x1, ly, "Iran says three tankers hit mines in Hormuz",
-    "Tehran's Revolutionary Guards said three tankers hit mines in the "
-    "Strait of Hormuz under US escort; the claim is unconfirmed. A fifth "
-    "of the world's oil passes through the strait.", col_w)
-ly = story(x1, ly, "Strikes on Yemen buses and trucks kill about 25",
-    "Air strikes hit buses and trucks in Lahj governorate, leaving 25 "
-    "dead or missing. Middle East Eye reported the aircraft were Saudi; "
-    "the Houthis and Yemen's government blamed each other.", col_w)
+ly = story(x1, ly, "Houthi attack hits Riyadh tower housing Saudi fund HQ",
+    "A Houthi attack hit a tower in Riyadh's financial district housing "
+    "the Public Investment Fund HQ, wounding at least 11 — the second "
+    "hit in under a week. Yemen's military said Houthi fighters are "
+    "about 60 km from Aden.", col_w)
+ly = story(x1, ly, "Iran says four tankers hit mines in Hormuz",
+    "Iran said four tankers hit mines in the Strait of Hormuz; the claims "
+    "are unconfirmed. The Revolutionary Guards navy said it attacked a "
+    "container ship that had switched off its navigation systems.", col_w)
 left_end = ly
 
 # right column: world (cont.), americas, indonesia, markets & science
@@ -138,20 +144,21 @@ ry = story(x2, ry, "Democrats win House by largest margin in decades",
     "Final counts three weeks after the US midterms show Democrats "
     "flipped 47 House seats and could reach 49 — their biggest majority "
     "in decades. Reports put the Senate at 56 to 44.", col_w)
-ry = story(x2, ry, "Car bomb hits governor's office in Colombia",
-    "A car bomb beside the Meta government building in Villavicencio "
-    "injured at least 21 people and cut power. A drone attack on a "
-    "Cucuta police station was Colombia's first in a city.", col_w)
+ry = story(x2, ry, "Gunmen hold 25 hostage in Cartagena supermarket",
+    "Armed men seized a supermarket in Cartagena, Colombia, and held 25 "
+    "people hostage; five older women were released. Troops and police "
+    "deployed, and the airport briefly suspended landings. President "
+    "Abelardo de la Espriella announced the crisis.", col_w)
 ry = region(x2, ry, "Indonesia", col_w)
 ry = story(x2, ry, "Factory fire kills 26 in Banten, dozens missing",
     "The death toll from a candy factory fire in Banten province rose "
     "to 26, with about 34 people still missing. Rescuers searched "
     "unstable structures; DNA testing is needed to name victims.", col_w)
 ry = region(x2, ry, "Markets & Science", col_w)
-ry = story(x2, ry, "Stocks surge as tech rebounds: Nikkei +3.91%",
-    "Huang's return lit up markets: the S&P 500 rose 4.73% to 7,237 and "
-    "Seoul gained over 6%, while Brent crude held at $86.71, near "
-    "three-month lows despite the Hormuz claims.", col_w)
+ry = story(x2, ry, "Markets cool after Nvidia's $1trn surge: S&P -0.95%",
+    "The S&P 500 fell 0.95% to 7,168 on Tuesday after Monday's "
+    "Nvidia-driven surge; Seoul gained 6% and the Nikkei 3.91%, while "
+    "the Euro Stoxx 50 fell 1.16%. Brent crude rose to $87.51.", col_w)
 ry = story(x2, ry, "Pakistani astronaut to fly on China's Shenzhou-24",
     "China named the Shenzhou-24 crew: Pakistan Air Force pilot Zeeshan "
     "Ali will be the first foreign astronaut aboard the Tiangong "
@@ -168,8 +175,8 @@ d.text((MARGIN, ny), "THE DAY IN NUMBERS", font=F(SANSB, 11.5), fill=ACCENT)
 ny += 18
 nums = [
     ("+31%", "Nvidia's one-day share jump"),
-    ("7", "drones that sank the Merkury"),
-    ("130", "parties rejecting COP31 draft"),
+    ("10 of 12", "Huawei counts it was convicted on"),
+    ("11", "wounded in the Riyadh tower hit"),
     ("47", "House seats flipped to Democrats"),
     ("26", "dead in the Banten factory fire"),
 ]
@@ -184,8 +191,8 @@ ny += 54
 ty = PAGE - 40
 d.rectangle([(0, ty), (PAGE, PAGE)], fill=TICKER_BG)
 d.text((MARGIN, ty + 7), "THE WIRE", font=F(SANSB, 12), fill=(255, 110, 110))
-wire = ("Estonia to close Russia crossings Dec. 1  ·  Nepal PM wins EUR1.4bn India pledge  ·  "
-        "CrowdStrike to buy Zscaler for $44bn")
+wire = ("Colombia car bomb injures 23 in Villavicencio  ·  Sanofi agrees to buy Insmed for $41bn  ·  "
+        "Estonia to close Russia crossings Dec. 1")
 wire_w = d.textlength(wire, font=F(SANS, 11.5))
 assert MARGIN + 82 + wire_w <= PAGE - MARGIN, f"wire too wide: {wire_w}"
 d.text((MARGIN + 82, ty + 8), wire, font=F(SANS, 11.5), fill=WHITE)
